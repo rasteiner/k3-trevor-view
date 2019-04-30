@@ -1,0 +1,15 @@
+{
+    "name": "rasteiner/k3-trevor-view",
+    "description": "Kirby 3 Plugin to edit your language translation variables from the Panel",
+    "type": "kirby-plugin",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Roman Steiner",
+            "email": "roman@toastlab.ch"
+        }
+    ],
+    "require": {
+        "getkirby/composer-installer": "^1.1"
+    }
+}
