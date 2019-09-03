@@ -29,7 +29,7 @@ jobs:
           name: Create artifacts (zip index.css, index.js, index.php, license.txt and composer.json)
           command: |
             mkdir ./artifacts
-            zip artifacts/build index.* license.txt composer.json
+            zip artifacts/build index.* LICENSE.md composer.json src/trevor/
       - persist_to_workspace:
           root: ./artifacts
           paths:
