@@ -10,17 +10,19 @@ Edit your language translation variables from the Panel.
 
 ### Download
 
-Download and copy this repository to `/site/plugins/k3-trevor-view`.
+Download and copy a release (from the relase tab) to `/site/plugins/k3-trevor-view`.
 
 ### Git submodule
 
 ```
-git submodule add https://github.com/rasteiner/k3-trevor-view.git site/plugins/k3-trevor-view
+git submodule add https://github.com/rasteiner-dist/k3-trevor-view.git site/plugins/k3-trevor-view
 ```
 
 ### Composer
 
-coming soon...
+```
+composer require rasteiner/k3-trevor-view
+```
 
 ## Setup
 
