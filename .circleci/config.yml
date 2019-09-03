@@ -1,0 +1,110 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:latest
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+
+      - run: npm install
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+
+      # build
+      - run: npm run build
+      - run:
+          name: Create artifacts (zip index.css, index.js, index.php, license.txt and composer.json)
+          command: |
+            mkdir ./artifacts
+            zip artifacts/build index.* license.txt composer.json
+      - persist_to_workspace:
+          root: ./artifacts
+          paths:
+            - build.zip
+
+  publish-github-release:
+
+    docker:
+      - image: cibuilds/github:0.10
+
+    working_directory: ~/repo
+
+    steps:
+      - attach_workspace:
+          at: ./artifacts
+
+      - run:
+          name: "Publish Release on GitHub"
+          # You need to create a github token
+          # https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/
+          # and store it as GITHUB_TOKEN environment variable in circle ci
+          # https://circleci.com/docs/2.0/env-vars/#setting-an-environment-variable-in-a-project
+          command: |
+            echo Creating and releasing ${CIRCLE_PROJECT_REPONAME} ${CIRCLE_TAG}
+            echo ghr -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${CIRCLE_TAG} artifacts/
+            mv ./artifacts/build.zip ./artifacts/${CIRCLE_PROJECT_REPONAME}-${CIRCLE_TAG}.zip
+            ghr -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${CIRCLE_TAG} artifacts/
+  publish-composer-release:
+
+    docker:
+      - image: cibuilds/github:0.10 #doesn't really matter
+
+    working_directory: ~/repo
+
+    steps:
+      - attach_workspace:
+          at: ./artifacts
+
+      - run:
+          name: Update dist repo
+          #You need to set environment variables GITHUB_EMAIL and GITHUB_NAME
+          command: |
+            git clone -q https://${GITHUB_TOKEN}@github.com/${CIRCLE_PROJECT_USERNAME}-dist/${CIRCLE_PROJECT_REPONAME}.git dist
+            cd dist
+            git config user.email "${GITHUB_EMAIL}"
+            git config user.name "${GITHUB_NAME}"
+            unzip -o ../artifacts/build.zip
+            git add .
+            git commit -m "update to ${CIRCLE_TAG}"
+            git tag ${CIRCLE_TAG}
+            git push -q https://${GITHUB_TOKEN}@github.com/${CIRCLE_PROJECT_USERNAME}-dist/${CIRCLE_PROJECT_REPONAME}.git master
+            git push -q https://${GITHUB_TOKEN}@github.com/${CIRCLE_PROJECT_USERNAME}-dist/${CIRCLE_PROJECT_REPONAME}.git ${CIRCLE_TAG}
+workflows:
+  version: 2
+  main:
+    jobs:
+      - build:
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^\d+\.\d+\.\d+$/
+      - publish-github-release:
+          requires:
+            - build
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^\d+\.\d+\.\d+$/
+      - publish-composer-release:
+          requires:
+            - build
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^\d+\.\d+\.\d+$/
