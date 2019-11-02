@@ -128,7 +128,7 @@ export default {
 
       //scroll into view
       const idx = this.languagekeys.indexOf(k);
-      this.$refs.keyspane[idx].scrollIntoViewIfNeeded();
+      this.$refs.keyspane[idx].scrollIntoView({block: "nearest"});
 
       //if there is a language without translation, focus that input.
       this.$nextTick(() => {
