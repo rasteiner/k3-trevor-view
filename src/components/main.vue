@@ -1,61 +1,63 @@
 <template>
-  <k-view class="trevor">
-    <k-header class="heading">{{$t('trevor.heading')}}</k-header>
+  <k-inside>
+    <k-view class="trevor">
+      <k-header class="heading">{{$t('trevor.heading')}}</k-header>
 
-    <div class="editor">
-      <div class="keys"
-       @keydown.down="selectNext"
-       @keydown.up="selectPrev"
-       >
-        <div
-          v-for="k of languagekeys"
-          :class="['key', {
-            selected: selected == k,
-            edited: edited.has(k)
-          }]"
-          :key="k"
-          @click="selectOne(k)"
-          tabindex="-1"
-          ref="keyspane">
-            <div class="txt">{{k}}</div>
-            <div class="missing" v-if="missing.has(k)"></div>
-        </div>
-
-      </div>
-      <div class="ctrl">
-        <k-button icon="add" @click="add">{{$t('add')}}</k-button>
-      </div>
-      <div class="texts">
-        <div
-          v-if="selected"
-          @keydown.up.ctrl="selectPrev"
-          @keydown.down.ctrl="selectNext"
+      <div class="editor">
+        <div class="keys"
+        @keydown.down="selectNext"
+        @keydown.up="selectPrev"
         >
-          <div class="lang" v-for="[code, lang] of languages" :key="code">
-            <k-textarea-field
-              :ref="`input_${code}`"
-              @input="edited.add(selected)"
-              v-model="lang.translations[selected]"
-              :buttons="false"
-              :label="lang.name + (lang.default?' *':'')" />
+          <div
+            v-for="k of languagekeys"
+            :class="['key', {
+              selected: selected == k,
+              edited: edited.has(k)
+            }]"
+            :key="k"
+            @click="selectOne(k)"
+            tabindex="-1"
+            ref="keyspane">
+              <div class="txt">{{k}}</div>
+              <div class="missing" v-if="missing.has(k)"></div>
           </div>
+
         </div>
-        <div class="no-selection" v-else>
-          <div class="text">
-            <p>{{$t('trevor.startinfo')}}</p>
-            <p><b>Trevor</b>: {{$t('trevor.payoff')}}</p>
+        <div class="ctrl">
+          <k-button icon="add" @click="add">{{$t('add')}}</k-button>
+        </div>
+        <div class="texts">
+          <div
+            v-if="selected"
+            @keydown.up.ctrl="selectPrev"
+            @keydown.down.ctrl="selectNext"
+          >
+            <div class="lang" v-for="[code, lang] of languages" :key="code">
+              <k-textarea-field
+                :ref="`input_${code}`"
+                @input="edited.add(selected)"
+                v-model="lang.translations[selected]"
+                :buttons="false"
+                :label="lang.name + (lang.default?' *':'')" />
+            </div>
+          </div>
+          <div class="no-selection" v-else>
+            <div class="text">
+              <p>{{$t('trevor.startinfo')}}</p>
+              <p><b>Trevor</b>: {{$t('trevor.payoff')}}</p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="savebar" v-if="edited.size">
-      <k-view>
-        <k-button icon="undo" @click="revert">{{$t('revert')}}</k-button>
-        <k-button icon="check" @click="save">{{$t('save')}}</k-button>
-      </k-view>
-    </div>
-  </k-view>
+      <div class="savebar" v-if="edited.size">
+        <k-view>
+          <k-button icon="undo" @click="revert">{{$t('revert')}}</k-button>
+          <k-button icon="check" @click="save">{{$t('save')}}</k-button>
+        </k-view>
+      </div>
+    </k-view>
+  </k-inside>
 </template>
 
 <script>
