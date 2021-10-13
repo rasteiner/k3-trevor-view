@@ -3,22 +3,12 @@
   "version": "0.0.0",
   "description": "",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "cross-env NODE_ENV=production webpack",
-    "watch": "cross-env NODE_ENV=development webpack --watch"
+    "dev": "kirbyup src/index.js --watch",
+    "build": "kirbyup src/index.js"
   },
   "author": "Roman Steiner",
   "license": "MIT",
   "devDependencies": {
-    "cross-env": "^5.2.0",
-    "css-loader": "^2.1.1",
-    "mini-css-extract-plugin": "^0.5.0",
-    "vue": "^2.6.10",
-    "vue-loader": "^15.7.0",
-    "vue-template-compiler": "^2.6.10",
-    "webpack": "^4.29.6",
-    "webpack-cli": "^3.3.0",
-    "webpack-inject-plugin": "^1.1.2",
-    "webpack-livereload-plugin": "^2.2.0"
+    "kirbyup": "^0.14.1"
   }
 }

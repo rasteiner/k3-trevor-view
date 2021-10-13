@@ -8,5 +8,8 @@ Kirby::plugin('rasteiner/k3-trevor-view', [
     'translations' => require __DIR__ . '/config/translations.php',
     'api' => [
         'routes' => require __DIR__ . '/config/api.php'
+    ],
+    'areas' => [
+        'trevor' => require __DIR__ . '/config/area.php'
     ]
 ]);
