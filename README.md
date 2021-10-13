@@ -6,11 +6,15 @@ Edit your language translation variables from the Panel.
 
 ![Screencast of the plugin](screenshot.gif)
 
+## Requirements
+
+This version requires at least Kirby 3.6.0. For previous versions, please use version 0.1.
+
 ## Installation
 
 ### Download
 
-Download and copy a release (from the relase tab) to `/site/plugins/k3-trevor-view`.
+Download and copy a release (from the release tab) to `/site/plugins/k3-trevor-view`.
 
 ### Git submodule
 
@@ -47,3 +51,4 @@ MIT
 ## Credits
 
 - [Roman Steiner](https://github.com/rasteiner)
+- [Bastian Allgeier](https://github.com/bastianallgeier) (port for Kirby 3.6)
