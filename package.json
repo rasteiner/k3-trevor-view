@@ -4,7 +4,8 @@
   "description": "",
   "scripts": {
     "dev": "kirbyup src/index.js --watch",
-    "build": "kirbyup src/index.js"
+    "build": "kirbyup src/index.js",
+    "updateversion": "node scripts/updateversion.js"
   },
   "author": "Roman Steiner",
   "license": "MIT",

@@ -25,6 +25,7 @@ jobs:
 
       # build
       - run: npm run build
+      - run: npm run updateversion ${CIRCLE_TAG}
       - run:
           name: Create artifacts (zip index.css, index.js, index.php, license.txt and composer.json)
           command: |
