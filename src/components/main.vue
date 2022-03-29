@@ -91,10 +91,10 @@ export default {
   },
   created: function() {
     this.fetch();
-    this.$events.$on("keydown.cmd.s", this.save);
+    this.$events.$on("keydown.cmd.s", this.onCmdS);
   },
   destroyed: function() {
-    this.$events.$off("keydown.cmd.s", this.save);
+    this.$events.$off("keydown.cmd.s", this.onCmdS);
   },
   methods: {
     fetch() {
@@ -154,6 +154,10 @@ export default {
       const idx = this.languagekeys.indexOf(this.selected);
       const nidx = Math.min(this.languagekeys.length - 1, idx + 1);
       this.selectOne(this.languagekeys[nidx]);
+    },
+    onCmdS(e) {
+      e.preventDefault();
+      this.save();
     },
     save() {
       if(this.edited.size === 0)return;

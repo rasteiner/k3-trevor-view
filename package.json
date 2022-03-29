@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "description": "",
   "scripts": {
-    "dev": "kirbyup src/index.js --watch",
-    "build": "kirbyup src/index.js",
+    "dev": "npx kirbyup src/index.js --watch",
+    "build": "npx kirbyup src/index.js",
     "updateversion": "node scripts/updateversion.js"
   },
   "author": "Roman Steiner",
