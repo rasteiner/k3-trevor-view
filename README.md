@@ -65,3 +65,4 @@ MIT
 
 - [Roman Steiner](https://github.com/rasteiner)
 - [Bastian Allgeier](https://github.com/bastianallgeier) (port for Kirby 3.6)
+- [Philippe Gervaise](https://github.com/malvese) (french translations)
