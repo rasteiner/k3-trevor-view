@@ -16,6 +16,4 @@ return [
             return Trevor::patch($this->requestBody());
         }
     ],
-
-
 ];

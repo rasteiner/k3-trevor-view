@@ -24,7 +24,7 @@
 
         </div>
         <div class="ctrl">
-          <k-button icon="add" @click="add">{{$t('add')}}</k-button>
+          <k-button icon="add" v-if="addKeys" @click="add">{{$t('add')}}</k-button>
         </div>
         <div class="texts">
           <div
@@ -62,6 +62,12 @@
 
 <script>
 export default {
+  props: {
+    addKeys: {
+      type: Boolean,
+      default: true
+    },
+  },
   computed: {
     languagekeys() {
       const set = new Set()

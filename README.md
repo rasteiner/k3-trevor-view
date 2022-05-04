@@ -35,6 +35,19 @@ Languages must be enabled in your installation and some languages must be create
 See the Kirby documentation.
 https://getkirby.com/docs/guide/languages/introduction#enabling-the-multi-lang-feature-in-the-panel
 
+## Config
+By default users are allowed to add new translation keys. This enables you, as a developer, to add keys while you are developing your project, or it allows users to add keys for dynamically generated content.
+You can disable this feature in the config by setting `trevor.allow_add_keys` to `false`.
+
+```php
+<?php
+return [
+    'trevor' => [
+        'allow_add_keys' => false,
+    ],
+];
+
+```
 
 ## Use it
 After installation and setup, you'll find a "Trevor" menu entry in your panel.

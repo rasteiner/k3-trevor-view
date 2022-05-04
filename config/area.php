@@ -10,7 +10,10 @@ return function () {
                 'pattern' => 'trevor',
                 'action'  => function () {
                     return [
-                        'component' => 'k-trevor-view'
+                        'component' => 'k-trevor-view',
+                        'props' => [
+                            'addKeys' => option('trevor.allow_add_keys', true),
+                        ]
                     ];
                 }
             ]
